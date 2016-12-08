@@ -1,18 +1,15 @@
 ﻿using System;
-
 namespace Vsite.CSharp
 {
     public struct KompleksniBroj
     {
         public double RealniDio;
         public double ImaginarniDio;
-
         public KompleksniBroj(double realniDio, double imaginarniDio)
         {
             RealniDio = realniDio;
             ImaginarniDio = imaginarniDio;
         }
-
         public override string ToString()
         {
             if (ImaginarniDio == 0)
@@ -23,7 +20,6 @@ namespace Vsite.CSharp
                 return string.Format("{0}{1}", RealniDio, PrikazImaginarnog());
             return string.Format("{0}+{1}", RealniDio, PrikazImaginarnog());
         }
-
         private string PrikazImaginarnog()
         {
             if (ImaginarniDio == 1)
@@ -32,38 +28,36 @@ namespace Vsite.CSharp
                 return "-i";
             return string.Format("{0}i", ImaginarniDio);
         }
-
         public static KompleksniBroj operator +(KompleksniBroj br1, KompleksniBroj br2)
         {
-            // TODO: implementirati binarni operator + (za zbrajanje dva kompleksna broja) i provjeriti ispis pri izvođenju programa
+            return new KompleksniBroj(br1.RealniDio + br2.RealniDio, br1.ImaginarniDio + br2.ImaginarniDio);
             throw new NotImplementedException();
         }
-
-        // TODO: Implementirati binarni operator - (za oduzimanje dva kompleksna broja)
-        
-        // TODO: Implementirati preopterećeni unarni operator - (za promjenu predznaka)
-
+        public static KompleksniBroj operator -(KompleksniBroj br1, KompleksniBroj br2)
+        {
+            return new KompleksniBroj(br1.RealniDio - br2.RealniDio, br1.ImaginarniDio - br2.ImaginarniDio);
+            throw new NotImplementedException();
+        }
+        public static KompleksniBroj operator -(KompleksniBroj br1)
+        {
+            return new KompleksniBroj(br1.RealniDio *= -1, br1.ImaginarniDio *= -1);
+            throw new NotImplementedException();
+        }
         // TODO: Otkomentirati naredbu koja ga poziva u Main te provjeriti ispis pri izvođenju programa
-
     }
-
     class OperatoriPlusMinus
     {
         static void Main(string[] args)
         {
             KompleksniBroj kb1 = new KompleksniBroj(1, 2);
             KompleksniBroj kb2 = new KompleksniBroj(0, -4);
-
             KompleksniBroj zbroj = kb1 + kb2;
             Console.WriteLine("({0}) + ({1}) = {2}", kb1, kb2, zbroj);
-
             // Naredba koja poziva binarni operator -
-            //KompleksniBroj razlika = kb2 - kb1;
-            //Console.WriteLine("({0}) + ({1}) = {2}", kb1, kb2, razlika);
-
+            KompleksniBroj razlika = kb2 - kb1;
+            Console.WriteLine("({0}) - ({1}) = {2}", kb2, kb1, razlika);
             // Naredba koja poziva unarni operator -
-            //Console.WriteLine("-[({0}) + ({1})] = {2}", kb1, kb2, -(zbroj));
-
+            Console.WriteLine("-[({0}) + ({1})] = {2}", kb1, kb2, -(zbroj));
             Console.WriteLine("GOTOVO!!!");
             Console.ReadKey();
         }
